@@ -18,6 +18,16 @@ $> git clone https://github.com/TempusThales/macos_setup
 $> cd ~/macos_setup
 ```
 
+3. Add permissions to execute the script
+```sh
+$> chmod a+x macos_setup.sh
+```
+
+4. Run macos_setup.sh
+```sh
+$> ./macos_setup.sh
+```
+
 ## Manually linking individual dotfiles
 
 If it's preferable to manually move a dotfile into place, opt for a **symbolic link** instead of a copy->paste.
