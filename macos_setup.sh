@@ -20,7 +20,7 @@ model=$(ioreg -l | grep "product-name" | cut -d ""="" -f 2 | sed -e 's/[^[:alnum
 tag="b2-"
 serial=$(ioreg -l | grep "IOPlatformSerialNumber" | cut -d ""="" -f 2 | sed -e 's/[^[:alnum:]]//g') 
 tld="bytesandbeans.dev"
-log_path="/var/log/$currentUser"
+log_path="~/.logs"
 log_file="com.$currentUser.macos.mac_setup.log"
 
 ########################################################################################################################################
