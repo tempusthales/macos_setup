@@ -12,7 +12,7 @@
 # Special Thanks to @MasterKale - https://github.com/MasterKale Someone had to teach the kid macOS tricks and being a true friend.
 ########################################################################################################################################
 
-# variables
+# variables - this is a mess later to get it pretty or whatever
 echo [Setting up Variables]
 
 currentUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
@@ -22,10 +22,6 @@ serial=$(ioreg -l | grep "IOPlatformSerialNumber" | cut -d ""="" -f 2 | sed -e '
 tld="bytesandbeans.dev"
 log_path="/var/log/$currentUser"
 log_file="com.$currentUser.macos.mac_setup.log"
-
-# Keep-alive: update existing sudo time stamp until the script has finished
-logMessage "Keep-alive: update existing sudo time stamp until the script has finished"
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ########################################################################################################################################
 # Establish standardized local logging logic - Patent Pending
@@ -49,13 +45,11 @@ logMessage () {
 
 ########################################################################################################################################
 
-# Setting up working directory
-logMessage "verifying if ~/.setup_macos_files exists and if not create it"
-if [[ ! -e $dir ]]; then
-    mkdir $dir
-elif [[ ! -d $dir ]]; then
-    echo "$dir already exists but is not a directory" 1>&2
-fi
+logMessage "Requesting sudo elevation before proceeding"
+sudo -v
+# Keep-alive: update existing sudo time stamp until the script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+echo ✅ Done
 
 logMessage "Giving this mac a name!"
 /usr/sbin/scutil --set LocalHostName "${tag}${serial}" && /usr/sbin/scutil --set ComputerName "${tag}${serial}" && /usr/sbin/scutil --set HostName "${tag}${serial}.${tld}"
