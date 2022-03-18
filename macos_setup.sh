@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Not Ready
+echo "Not ready"
+exit 0
 #########################################################################################################################################
 # Credits:
 # Portions of this script will have snippets from scripts created by different MacAdmins Honchos such as:
